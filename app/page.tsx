@@ -18,6 +18,21 @@ export default function HomePage() {
     { id: "nagy", label: "Nagy (45 cm)", price: 3200 },
   ];
 
+  type ToppingItem = {
+    id: string;
+    label: string;
+    price: number;
+  };
+
+  const TOPPINGS: ToppingItem[] = [
+    { id: "sonka", label: "Sonka", price: 350 },
+    { id: "gomba", label: "Gomba", price: 250 },
+    { id: "kukorica", label: "Kukorica", price: 200 },
+    { id: "szalami", label: "Szalámi", price: 400 },
+    { id: "paprika", label: "Paprika", price: 250 },
+    { id: "sajt", label: "Extra sajt", price: 450 },
+  ];
+
   const [name, setName] = useState<string>(""); // array destrukturálás
   const [selectedSizeId, setSelectedSizeId] = useState<string>("nagy");
 
@@ -25,6 +40,8 @@ export default function HomePage() {
   if (name) {
     greeting = `Kedves ${name}, állítsd össze a pizzádat!`;
   }
+
+  const selectedToppings = ["fesfse", "greg"];
 
   return (
     <main className="flex min-h-screen justify-center bg-gray-100 p-4">
@@ -92,6 +109,25 @@ export default function HomePage() {
                   <span className={`text-sm ${isSelected ? "text-amber-800/80" : "text-gray-400"}`}>
                     {size.price} Ft
                   </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="mb-2 font-semibold">Feltétek ({selectedToppings.length}) kiválasztva</h2>
+          <div className="grid grid-cols-3 gap-3">
+            {TOPPINGS.map((topping) => {
+              return (
+                <button
+                  className={`flex flex-col items-center justify-center rounded-xl border px-2 py-3 transition-all`}
+                  key={topping.id}
+                  type="button"
+                  onClick={() => setSelectedSizeId(topping.id)}
+                >
+                  <span className={`text-sm`}>{topping.label}</span>
+                  <span className={`text-sm`}>{topping.price} Ft</span>
                 </button>
               );
             })}
